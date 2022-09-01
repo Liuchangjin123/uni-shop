@@ -26,8 +26,15 @@
 	"subPackages": [{
 		"root": "subpkg",
 		"pages": [{
-				"path": "goods_detail/goods_detail",
-				"style": {}
+			"path": "goods_detail/goods_detail",
+			"style": {}
+		}, {
+			"path": "goods_list/goods_list",
+			"style": {}
+		}, {
+			"path": "search/search",
+			"style": {}
+
 		}]
 	}],
 	"globalStyle": {
