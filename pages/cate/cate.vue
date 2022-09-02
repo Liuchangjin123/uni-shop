@@ -17,9 +17,9 @@
 				:scroll-top="scrollTop">
 				<view class="cate-lv2" v-for="(item2, i2) in cateLevel2" :key="i2">
 					<!-- 二级分类标题 -->
-					<view class="cate-lv2-title" v-if="item2.children.length > 0">{{item2.cat_name}}</view>
+					<view class="cate-lv2-title" v-if="item2.children">{{item2.cat_name}}</view>
 					<!-- 三级分类列表 -->
-					<view class="cate-lv3-list" v-if="item2.children.length > 0">
+					<view class="cate-lv3-list">
 						<view class="cate-lv3-item" v-for="(item3, i3) in item2.children" :key="i3"
 							@click="gotoGoodsList(item3)">
 							<!-- 三级分类图片 -->
@@ -62,7 +62,7 @@
 
 				// 为二级分类赋值
 				this.cateLevel2 = res.message[0].children
-				console.log(this.cateLevel2)
+				// console.log(this.cateLevel2)
 			},
 			activeChanged(i) {
 				this.active = i
