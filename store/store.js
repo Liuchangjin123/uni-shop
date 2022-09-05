@@ -5,7 +5,7 @@ import moduleCart from '@/store/cart.js'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-	module: {
+	modules: {
 		'm_cart': moduleCart
 	}
 })

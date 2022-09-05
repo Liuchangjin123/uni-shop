@@ -51,5 +51,6 @@ export function createApp() {
 	return {
 		app
 	}
+	app.use(store)
 }
 // #endif
