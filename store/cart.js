@@ -38,17 +38,28 @@ export default {
 			state.cart = state.cart.filter(x => x.goods_id !== goods_id)
 
 			this.commit('m_cart/saveToStorage')
+		},
+		updateAllGoodsState(state, newState) {
+			state.cart.forEach(x => x.goods_state = newState)
+			this.commit('m_cart/saveToStorage')
 		}
-
 
 	},
 
 	getters: {
 		total(state) {
-			let c = 0
-			state.cart.forEach(x => c += x.goods_count)
-			return c
+			return state.cart.reduce((total, item) =>
+				total += item.goods_count, 0)
+		},
+		checkedCount(state) {
+			return state.cart.filter(x => x.goods_state).reduce((total, item) =>
+				total += item.goods_count, 0)
+		},
+		amount(state) {
+			return state.cart.filter(x => x.goods_state).reduce((amount, item) =>
+				amount += (item.goods_price * item.goods_count), 0)
 		}
+
 	}
 
 }

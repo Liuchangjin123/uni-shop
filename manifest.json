@@ -56,7 +56,10 @@
 			"checkSiteMap": false,
 			"es6": true
 		},
-		"usingComponents": true
+		"usingComponents": true,
+		"requiredPrivateInfos": [
+			"chooseAddress"
+		]
 	},
 	"vueVersion": "2"
 }
