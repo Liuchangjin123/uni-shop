@@ -15,6 +15,13 @@ $http.beforeRequest = function(options) {
 	uni.showLoading({
 		title: "数据加载中..."
 	})
+
+	// console.log(store)
+	if (options.url.indexOf('/my/') !== -1) {
+		options.header = {
+			Authorization: 'store.state.m_user.token'
+		}
+	}
 }
 
 // 封装弹框的方法

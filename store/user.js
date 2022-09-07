@@ -6,7 +6,8 @@ export default {
 		token: '',
 		// 用户的信息对象
 		userinfo: JSON.parse(uni.getStorageSync('userinfo') || '{}'),
-		token: uni.getStorageSync('token') || ''
+		token: uni.getStorageSync('token') || '',
+		redirectInfo: null
 	}),
 
 	mutations: {
@@ -30,6 +31,10 @@ export default {
 		},
 		saveTokenToStorage(state) {
 			uni.setStorageSync('token', state.token)
+		},
+		updateRedirectInfo(state, info) {
+			state.redirectInfo = info
+			// console.log(state.redirectInfo)
 		}
 	},
 

@@ -45,7 +45,7 @@
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "微信商城",
 		"navigationBarBackgroundColor": "#007aff",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#f8f8f8"
 	},
 	"tabBar": {
 		"selectedColor": "#d81e06",

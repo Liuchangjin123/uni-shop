@@ -1,14 +1,17 @@
 <template>
-	<view class="login-container">
-		<uni-icons type="contact-filled" size="100" color="#afafaf"></uni-icons>
-		<button type="primary" class="btn-login" @click="getUserProfile">一键登录</button>
-		<text class="tips-text">登陆后尽享更多权益</text>
+	<view class="container">
+		<view class="login-container">
+			<uni-icons type="contact-filled" size="100" color="#afafaf"></uni-icons>
+			<button type="primary" class="btn-login" @click="getUserProfile">一键登录</button>
+			<text class="tips-text">登陆后尽享更多权益</text>
+		</view>
 	</view>
 </template>
 
 <script>
 	import {
-		mapMutations
+		mapMutations,
+		mapState
 	} from 'vuex'
 	export default {
 		name: "my-login",
@@ -17,8 +20,11 @@
 
 			};
 		},
+		computed: {
+			...mapState('m_user', ['redirectInfo'])
+		},
 		methods: {
-			...mapMutations('m_user', ['updateUserInfo', 'updateToken']),
+			...mapMutations('m_user', ['updateUserInfo', 'updateToken', 'updateRedirectInfo']),
 			// 获取用户的基本信息
 			async getUserProfile() {
 				const res = await uni.getUserProfile({
@@ -46,14 +52,28 @@
 					rawData: info.rawData,
 					signature: info.signature
 				}
-				console.log(query)
+				// console.log(query)
 				const {
 					data: loginResult
 				} = await uni.$http.post('/api/public/v1/users/wxlogin', query)
-				// console.log(loginResult)
-				if (loginResult.meta.status !== 400) return uni.$showMsg('登录失败！')
+				console.log(loginResult)
+				if (loginResult.meta.status == 200) return uni.$showMsg('登录失败！')
 				// uni.$showMsg('登陆成功！')
-				this.updateToken(loginResult.message.token)
+				// this.updateToken(loginResult.message.token)
+				// 自定义token
+				this.updateToken('Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.')
+
+				this.navigateBack()
+			},
+			navigateBack() {
+				if (this.redirectInfo && this.redirectInfo.openType === 'switchTab') {
+					uni.switchTab({
+						url: this.redirectInfo.from,
+						complete: () => {
+							this.updateRedirectInfo(null)
+						}
+					})
+				}
 			}
 		}
 	}
